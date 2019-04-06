@@ -1,14 +1,14 @@
 <?php
-global $section_id;
-$meal_section_meta = get_post_meta($section_id, 'meal_secton_featured', true);
-$meal_section = get_post($section_id);
+global $meal_section_id;
+$meal_section_meta = get_post_meta($meal_section_id, 'meal_secton_featured', true);
+$meal_section = get_post($meal_section_id);
 $meal_section_title = $meal_section->post_title;
 $meal_section_description = $meal_section->post_content;
 
 
 ?>
 
-<div class="section" data-aos="fade-up">
+<div class="section" data-aos="fade-up" id="<?php echo esc_attr($meal_section->post_name); ?>">
     <div class="container">
         <div class="row section-heading justify-content-center mb-5">
             <div class="col-md-8 text-center">

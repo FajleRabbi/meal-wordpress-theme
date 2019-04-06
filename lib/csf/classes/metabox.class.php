@@ -70,12 +70,12 @@ class CSFramework_Metabox extends CSFramework_Abstract{
     $cs_errors  = $transient['errors'];
     $has_nav    = ( count( $sections ) >= 2 && $callback['args']['context'] != 'side' ) ? true : false;
     $show_all   = ( ! $has_nav ) ? ' cs-show-all' : '';
-    $section_id = ( ! empty( $transient['ids'][$unique] ) ) ? $transient['ids'][$unique] : '';
-    $section_id = cs_get_var( 'cs-section', $section_id );
+    $meal_section_id = ( ! empty( $transient['ids'][$unique] ) ) ? $transient['ids'][$unique] : '';
+    $meal_section_id = cs_get_var( 'cs-section', $meal_section_id );
 
     echo '<div class="cs-framework cs-metabox-framework">';
 
-      echo '<input type="hidden" name="cs_section_id['. $unique .']" class="cs-reset" value="'. $section_id .'">';
+      echo '<input type="hidden" name="cs_section_id['. $unique .']" class="cs-reset" value="'. $meal_section_id .'">';
 
       echo '<div class="cs-body'. $show_all .'">';
 
@@ -92,7 +92,7 @@ class CSFramework_Metabox extends CSFramework_Abstract{
               $tab_icon = ( ! empty( $value['icon'] ) ) ? '<i class="cs-icon '. $value['icon'] .'"></i>' : '';
 
               if( isset( $value['fields'] ) ) {
-                $active_section = ( ( empty( $section_id ) && $num === 0 ) || $section_id == $value['name'] ) ? ' class="cs-section-active"' : '';
+                $active_section = ( ( empty( $meal_section_id ) && $num === 0 ) || $meal_section_id == $value['name'] ) ? ' class="cs-section-active"' : '';
                 echo '<li><a href="#"'. $active_section .' data-section="'. $value['name'] .'">'. $tab_icon . $value['title'] .'</a></li>';
               } else {
                 echo '<li><div class="cs-seperator">'. $tab_icon . $value['title'] .'</div></li>';
@@ -116,7 +116,7 @@ class CSFramework_Metabox extends CSFramework_Abstract{
 
             if( isset( $v['fields'] ) ) {
 
-              $active_content = ( ( empty( $section_id ) && $num === 0 ) || $section_id == $v['name'] ) ? ' style="display: block;"' : '';
+              $active_content = ( ( empty( $meal_section_id ) && $num === 0 ) || $meal_section_id == $v['name'] ) ? ' style="display: block;"' : '';
 
               echo '<div id="cs-tab-'. $v['name'] .'" class="cs-section"'. $active_content .'>';
               echo ( isset( $v['title'] ) ) ? '<div class="cs-section-title"><h3>'. $v['title'] .'</h3></div>' : '';

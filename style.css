@@ -10,3 +10,7 @@ Description:  this is meal html template from free-template.co.
 Tags: blog, food-and-drink
 Text Domain: meal
  */
+
+#paynow{
+    display: none;
+}

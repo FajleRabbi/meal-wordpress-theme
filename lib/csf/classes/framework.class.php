@@ -157,7 +157,7 @@ class CSFramework extends CSFramework_Abstract {
   public function validate_save( $request ) {
 
     $add_errors = array();
-    $section_id = cs_get_var( 'cs_section_id' );
+    $meal_section_id = cs_get_var( 'cs_section_id' );
 
     // ignore nonce requests
     if( isset( $request['_nonce'] ) ) { unset( $request['_nonce'] ); }
@@ -178,9 +178,9 @@ class CSFramework extends CSFramework_Abstract {
     }
 
     // reset only section
-    if ( isset( $request['reset'] ) && ! empty( $section_id ) ) {
+    if ( isset( $request['reset'] ) && ! empty( $meal_section_id ) ) {
       foreach ( $this->sections as $value ) {
-        if( $value['name'] == $section_id ) {
+        if( $value['name'] == $meal_section_id ) {
           foreach ( $value['fields'] as $field ) {
             if( isset( $field['id'] ) ) {
               if( isset( $field['default'] ) ) {
@@ -243,7 +243,7 @@ class CSFramework extends CSFramework_Abstract {
 
     // set transient
     $transient_time = ( cs_language_defaults() !== false ) ? 30 : 10;
-    set_transient( 'cs-framework-transient', array( 'errors' => $add_errors, 'section_id' => $section_id ), $transient_time );
+    set_transient( 'cs-framework-transient', array( 'errors' => $add_errors, 'section_id' => $meal_section_id ), $transient_time );
 
     return $request;
   }
@@ -298,13 +298,13 @@ class CSFramework extends CSFramework_Abstract {
 
     $transient  = get_transient( 'cs-framework-transient' );
     $has_nav    = ( count( $this->options ) <= 1 ) ? ' cs-show-all' : '';
-    $section_id = ( ! empty( $transient['section_id'] ) ) ? $transient['section_id'] : $this->sections[0]['name'];
-    $section_id = cs_get_var( 'cs-section', $section_id );
+    $meal_section_id = ( ! empty( $transient['section_id'] ) ) ? $transient['section_id'] : $this->sections[0]['name'];
+    $meal_section_id = cs_get_var( 'cs-section', $meal_section_id );
 
     echo '<div class="cs-framework cs-option-framework">';
 
       echo '<form method="post" action="options.php" enctype="multipart/form-data" id="csframework_form">';
-      echo '<input type="hidden" class="cs-reset" name="cs_section_id" value="'. $section_id .'" />';
+      echo '<input type="hidden" class="cs-reset" name="cs_section_id" value="'. $meal_section_id .'" />';
 
       if( $this->settings['ajax_save'] !== true && ! empty( $transient['errors'] ) ) {
 
@@ -353,7 +353,7 @@ class CSFramework extends CSFramework_Abstract {
 
             if( ( isset( $tab['sections'] ) ) ) {
 
-              $tab_active   = cs_array_search( $tab['sections'], 'name', $section_id );
+              $tab_active   = cs_array_search( $tab['sections'], 'name', $meal_section_id );
               $active_style = ( ! empty( $tab_active ) ) ? ' style="display: block;"' : '';
               $active_list  = ( ! empty( $tab_active ) ) ? ' cs-tab-active' : '';
               $tab_icon     = ( ! empty( $tab['icon'] ) ) ? '<i class="cs-icon '. $tab['icon'] .'"></i>' : '';
@@ -365,7 +365,7 @@ class CSFramework extends CSFramework_Abstract {
                 echo '<ul'. $active_style .'>';
                 foreach ( $tab['sections'] as $tab_section ) {
 
-                  $active_tab = ( $section_id == $tab_section['name'] ) ? ' class="cs-section-active"' : '';
+                  $active_tab = ( $meal_section_id == $tab_section['name'] ) ? ' class="cs-section-active"' : '';
                   $icon = ( ! empty( $tab_section['icon'] ) ) ? '<i class="cs-icon '. $tab_section['icon'] .'"></i>' : '';
 
                   echo '<li><a href="#"'. $active_tab .' data-section="'. $tab_section['name'] .'">'. $icon . $tab_section['title'] .'</a></li>';
@@ -381,7 +381,7 @@ class CSFramework extends CSFramework_Abstract {
 
               if( isset( $tab['fields'] ) ) {
 
-                $active_list = ( $section_id == $tab['name'] ) ? ' class="cs-section-active"' : '';
+                $active_list = ( $meal_section_id == $tab['name'] ) ? ' class="cs-section-active"' : '';
                 echo '<li><a href="#"'. $active_list .' data-section="'. $tab['name'] .'">'. $icon . $tab['title'] .'</a></li>';
 
               } else {
@@ -405,7 +405,7 @@ class CSFramework extends CSFramework_Abstract {
 
             if( isset( $section['fields'] ) ) {
 
-              $active_content = ( $section_id == $section['name'] ) ? ' style="display: block;"' : '';
+              $active_content = ( $meal_section_id == $section['name'] ) ? ' style="display: block;"' : '';
               echo '<div id="cs-tab-'. $section['name'] .'" class="cs-section"'. $active_content .'>';
               echo ( isset( $section['title'] ) && empty( $has_nav ) ) ? '<div class="cs-section-title"><h3>'. $section['title'] .'</h3></div>' : '';
 

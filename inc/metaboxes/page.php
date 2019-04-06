@@ -8,11 +8,15 @@ function meal_page_section_metabox($metaboxes)
         $page_id = empty( $_REQUEST['post_ID'] ) ? $_REQUEST['post'] : $_REQUEST['post_ID'];
     }
 
-    $current_page_template = get_post_meta( $page_id, '_wp_page_template', true );
-    if ( ! in_array( $current_page_template, array( 'about-us.php', 'contact-us.php' ) ) ) {
+//    $current_page_template = get_post_meta( $page_id, '_wp_page_template', true );
+//    if ( ! in_array( $current_page_template, array( 'about-us.php', 'contact-us.php' ) ) ) {
+//        return $metaboxes;
+//    }
+
+    $current_page_template = get_post_meta($page_id, '_wp_page_template', true);
+    if(!in_array($current_page_template, array('page-templates/landing.php'))){
         return $metaboxes;
     }
-
 
     $metaboxes[] = array(
         'id' => 'meal_page_sections',
